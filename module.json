@@ -5,9 +5,12 @@
   "authors": [
     {
       "name": "DanButcher",
+      "url": "https://github.com/DanButcher45",
       "flags": {}
     }
   ],
+  "url": "https://github.com/DanButcher45/fvtt-token-action-hud-cairn",
+  "flags": {},
   "version": "1.0.10",
   "compatibility": {
     "minimum": "12",
@@ -43,5 +46,7 @@
       "optional": []
     }
   },
-  "manifest": ""
+  "manifest": "https://github.com/DanButcher45/token-action-hud-cairn/releases/latest/download/module.json",
+  "download": "https://github.com/DanButcher45/token-action-hud-cairn/releases/download/1.0.10/module.zip",
+  "readme": "https://github.com/DanButcher45/token-action-hud-cairn"
 }
