@@ -1,0 +1,4 @@
+node_modules/*
+.idea/
+token-action-hud-cairn.lock
+.notes.txt
