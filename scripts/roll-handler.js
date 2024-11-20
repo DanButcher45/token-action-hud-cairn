@@ -138,15 +138,15 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             const item = actor.items.get(actionId);
             if (item.system.uses.max > 0) {
                 if (event.button == 2) {
-                    if (item.system.uses.value < item.system.uses.max) {
-                        item.system.uses.value++;
+                    if (item.system.uses.value > 0) {
+                        item.system.uses.value--;
                         await item.update({'system.uses.value': item.system.uses.value});
                         Hooks.callAll('forceUpdateTokenActionHud');
                     }
                 }
                 else {
-                    if (item.system.uses.value > 0) {
-                        item.system.uses.value--;
+                    if (item.system.uses.value < item.system.uses.max) {
+                        item.system.uses.value++;
                         await item.update({'system.uses.value': item.system.uses.value});
                         Hooks.callAll('forceUpdateTokenActionHud');
                     }

@@ -9,9 +9,8 @@
       "flags": {}
     }
   ],
-  "url": "https://github.com/DanButcher45/fvtt-token-action-hud-cairn",
-  "flags": {},
-  "version": "1.0.10",
+  "url": "https://github.com/DanButcher45/token-action-hud-cairn",
+  "version": "1.0.11",
   "compatibility": {
     "minimum": "12",
     "verified": "12"
