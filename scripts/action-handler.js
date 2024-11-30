@@ -137,6 +137,15 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     const name = [game.i18n.localize('CAIRN.Deprived'), deprived == true ? game.i18n.localize('tokenActionHud.dialog.button.yes') : game.i18n.localize('tokenActionHud.dialog.button.no')].join(': ');
                     infosActions.push({name: name, cssClass: "toggle", id: '2', encodedValue: "status_infos|deprived"});
                 }
+                // Panicked
+                let panicked = false;
+                if (this.actor.type == "character" && game.settings.get("cairn", "use-panic") == true) {
+                    if (this.actor.system.panicked != null) {
+                        panicked = this.actor.system.panicked;
+                    }
+                    const name = [game.i18n.localize('CAIRN.Panicked'), panicked == true ? game.i18n.localize('tokenActionHud.dialog.button.yes') : game.i18n.localize('tokenActionHud.dialog.button.no')].join(': ');
+                    infosActions.push({name: name, cssClass: "toggle", id: '3', encodedValue: "status_infos|panicked"});
+                }
                 // Add infos for Armor, HP and Deprived
                 this.addActions(infosActions, {id: 'status_infos', type: 'system'});
                 

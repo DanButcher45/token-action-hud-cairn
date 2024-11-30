@@ -178,7 +178,15 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 case 'deprived':
                     await actor.update({'system.deprived': actor.system.deprived == true ? false : true});
                     break;
+                case 'panicked':
+                    await actor.update({'system.hp.value': 0});
+                    await actor.update({'system.panicked': actor.system.panicked == true ? false : true});
+                    break;
                 case 'rest':
+                    if ((game.settings.get("cairn", "use-panic") == true) && actor.system.panicked != null && actor.system.panicked == true) {
+                        // Character cannot rest when panicked
+                        break;
+                    }
                     if (actor.system.hp.value < actor.system.hp.max && ((actor.system.encumbered == null) || (actor.system.encumbered == false))) {
                         await actor.update({'system.hp.value': actor.system.hp.value = actor.system.hp.max});
                     }
@@ -224,7 +232,15 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             //const dataset = element.dataset;
             const item = actor.items.get(actionId);
             if (item.system.damageFormula) {
-                const roll = await evaluateFormula(item.system.damageFormula, actor.getRollData());
+                let formula;
+                if ((actor.type == "character") && (game.settings.get("cairn", "use-panic") == true) && (actor.system.panicked != null) && (actor.system.panicked == true)) {
+                    // Attacks of Panicked Character are impaired to 1d4 damage
+                    formula = "1d4";
+                }
+                else {
+                    formula = item.system.damageFormula;
+                }
+                const roll = await evaluateFormula(formula, actor.getRollData());
                 const label = item.name ? game.i18n.localize("CAIRN.RollingDmgWith") + ` ${item.name}` : "";
 
                 const targetedTokens = Array.from(game.user.targets).map(t => t.id);
