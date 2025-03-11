@@ -89,7 +89,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             const itemsActions = [];
             const items = this.actor.items.filter(w => w.type != 'weapon' && w.type != 'armor' && w.type != 'spellbook');
             for (let a in items) {
-                const name = items[a].system.uses.max > 0 ? [[items[a].name, items[a].system.uses.max - items[a].system.uses.value].join(': '), items[a].system.uses.max].join(' / ') : items[a].name;
+                const name = items[a].system.uses.max > 0 ? [[items[a].name, items[a].system.uses.value].join(': '), items[a].system.uses.max].join(' / ') : items[a].name;
                 const itemEncodedValue = ['inventory_items', items[a].id].join('|');
                 const cssClassVal = items[a].system.uses.max > 0 ? "toggle" : "";
                 itemsActions.push({name: name, img: items[a].img, cssClass: cssClassVal, id: a, encodedValue: itemEncodedValue});
