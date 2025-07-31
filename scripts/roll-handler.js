@@ -301,8 +301,13 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
          */
         async #handleBioAction(event, actor, actionId) {
             const Background = game.i18n.localize("CAIRN.Background");
+            const Role = game.i18n.localize("CAIRN.Role");
             const Description = game.i18n.localize("CAIRN.Description");
-            let content = actor.type == 'npc' ? `<b>${Description}:</b><br>${actor.system.biography}` : `<b>${Background}:</b> ${actor.system.background}<hr/><b>${Description}:</b><p>${actor.system.biography}</p>`;
+            let content = "";
+            if ((actor.system.background != null) && (actor.system.background != "")) {
+                content = content.concat(actor.type == 'npc' ? `<b>${Role}:</b> ${actor.system.background}<hr/>` : `<b>${Background}:</b> ${actor.system.background}<hr/>`);
+            }
+            content = content.concat(actor.type == 'npc' ? `<b>${Description}:</b><br>${actor.system.biography}` : `<b>${Description}:</b><p>${actor.system.biography}</p>`);
             if ((actor.system.notes != null) && (actor.system.notes != "")) {
                 const Notes = game.i18n.localize("CAIRN.Notes");
                 content = content.concat(`<hr/><b>${Notes}:</b>${actor.system.notes}`);
