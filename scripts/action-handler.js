@@ -33,7 +33,11 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
         buildCharacterActions() {
 
             const weaponActions = [];
-            const weapons = this.actor.items.filter(w => w.type === 'weapon' && w.system.equipped === true);
+            let weapons = this.actor.items.filter(w => w.type === 'weapon' && w.system.equipped === true);
+            // Fix to allow Weapons for Monsters with bad Item Types
+            if ((weapons.length == 0) && (this.actor.type == "npc")) {
+                weapons = this.actor.items.filter(w => w.system.equipped == true && w.system.damageFormula != null && w.system.damageFormula != "");
+            }
 
             const spellActions = [];
             const spells = this.actor.items.filter(w => w.type === 'spellbook' && w.system.equipped === true);
@@ -177,7 +181,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 this.addActions(invStatusActions, {id: 'status_inventory', type: 'system'});
             }
 
-            if (this.actor.system.biography) {
+            if (this.actor.system.biography || this.actor.system.description) {
                 const bioActions = [];
                 const bio = game.i18n.localize('CAIRN.Description');
                 bioActions.push({name: bio, cssClass: "toggle", id: '0', encodedValue: 'status_bio|bio'});
