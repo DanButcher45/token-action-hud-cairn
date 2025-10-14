@@ -306,8 +306,9 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             //let content = actor.type == 'npc' ? `<b>${Description}:</b><br>${actor.system.biography}` : `<b>${Background}:</b> ${actor.system.background}<hr/><b>${Description}:</b><p>${actor.system.biography}</p>`;
             let content = "";
             if ((actor.system.background != null) && (actor.system.background != "")) {
-                content = content.concat(actor.type == 'npc' ? `<b>${Role}:</b>` : `<b>${Background}:</b>`);
-                content = content.concat(` ${actor.system.background}<hr/>`);
+                content = content.concat(actor.type == 'npc' ? `<p><b>${Role}:</b>` : `<p><b>${Background}:</b>`);
+                //content = content.concat(` ${actor.system.background}<hr/>`);
+                content = content.concat(` ${actor.system.background}</p>`);
             }
             if ((actor.system.biography != null) && (actor.system.biography != "")) {
                 content = content.concat(`<b>${Description}:</b><br><p>${actor.system.biography}</p>`);
@@ -317,21 +318,33 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
             }
             if ((actor.system.notes != null) && (actor.system.notes != "")) {
                 const Notes = game.i18n.localize("CAIRN.Notes");
-                content = content.concat(`<hr/><b>${Notes}:</b>${actor.system.notes}`);
+                //content = content.concat(`<hr/><b>${Notes}:</b>${actor.system.notes}`);
+                content = content.concat(`<b>${Notes}:</b>${actor.system.notes}`);
             }
-            let d = new Dialog({
-                title: `${actor.name}`,
-                content: content,
-                buttons: {
-                    close: {
-                        icon: "<i class='fas fa-check'></i>",
-                        label: `Close`
+            if (event.button == 2) {
+                // Right-Click: Display Bio in Chat Messages
+                ChatMessage.create({
+                    speaker: ChatMessage.getSpeaker({ actor: actor }),
+                    content: content,
+                    whisper: [game.user.id],
+                });
+            }
+            else {
+                // Left-Click: Display Bio in Popup Dialog
+                let d = new Dialog({
+                    title: `${actor.name}`,
+                    content: content,
+                    buttons: {
+                        close: {
+                            icon: "<i class='fas fa-check'></i>",
+                            label: `Close`
+                        },
                     },
-                },
-                default: "close",
-                close: () => {}
-            });
-            d.render(true);
+                    default: "close",
+                    close: () => {}
+                });
+                d.render(true);
+            }
         }
 
         /**
