@@ -1,0 +1,16 @@
+{
+  "tokenActionHud.cairn.abilities": "Habilidades",
+  "tokenActionHud.cairn.action": "Ação",
+  "tokenActionHud.cairn.bad": "Ruim",
+  "tokenActionHud.cairn.bio": "Biografia",
+  "tokenActionHud.cairn.combat": "Combate",
+  "tokenActionHud.cairn.good": "Bom",
+  "tokenActionHud.cairn.healing": "Cura",
+  "tokenActionHud.cairn.info": "Informações",
+  "tokenActionHud.cairn.inventory": "Inventário",
+  "tokenActionHud.cairn.magic": "Magia",
+  "tokenActionHud.cairn.misc": "Diversos",
+  "tokenActionHud.cairn.purse": "Bolsa",
+  "tokenActionHud.cairn.saves": "Habilidade (Salvamentos)",
+  "tokenActionHud.cairn.status": "Status"
+}
