@@ -106,6 +106,10 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 const imgGold = 'modules/token-action-hud-cairn/assets/tokens/gold-piece.webp';
                 const name = [game.i18n.localize('CAIRN.Gold'), this.actor.system.gold].join(': ');
                 goldActions.push({name: name, img: imgGold, id: '0', encodedValue: "inventory_purse|gold"});
+                goldActions.push({name: '-5', id: '1', encodedValue: "inventory_purse|-5"});
+                goldActions.push({name: '-1', id: '2', encodedValue: "inventory_purse|-1"});
+                goldActions.push({name: '+1', id: '3', encodedValue: "inventory_purse|+1"});
+                goldActions.push({name: '+5', id: '4', encodedValue: "inventory_purse|+5"});
                 this.addActions(goldActions, {id: 'inventory_purse', type: 'system'});
             }
 

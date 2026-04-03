@@ -79,6 +79,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                     break;
                     
                 case 'inventory_purse':
+                    await this.#handlePurse(event, actor, actionId);
                     break;
                     
                 case 'status_infos':
@@ -110,6 +111,17 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) => {
                 case 'utility_combat':
                     await this.#handleUtilityAction(token, actionId);
                     break;
+            }
+        }
+
+        async #handlePurse(event, actor, actionId) {
+            let amount = Number(actionId);
+            if (amount) {
+                actor.system.gold += amount;
+                if (actor.system.gold < 0) {
+                    actor.system.gold = 0;
+                }
+                await actor.update({'system.gold': actor.system.gold});
             }
         }
 
